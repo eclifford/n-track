@@ -1,0 +1,31 @@
+{
+  "name": "n-track",
+  "version": "0.0.1",
+  "description": "A DOM event based tracking library",
+  "main": "dist/track.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/babel src/track.js -w -o dist/track.js",
+    "test": "./node_modules/.bin/karma start karma.config.js"
+  },
+  "author": "Eric Clifford",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.3.13",
+    "babel-cli": "^6.3.15",
+    "babel-plugin-transform-object-assign": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "chai": "^3.4.1",
+    "jquery": "^2.1.4",
+    "jsdom": "^7.2.0",
+    "karma": "^0.13.15",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^0.2.1",
+    "karma-mocha-reporter": "^1.1.3",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sinon-chai": "^1.1.0",
+    "mocha": "^2.3.4",
+    "mocha-jsdom": "^1.0.0",
+    "phantomjs": "^1.9.19"
+  }
+}

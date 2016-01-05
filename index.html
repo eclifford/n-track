@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>n-track</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <script src="node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+</head>
+<body data-track-group='{ "category": "Order-Wizard" }'>
+
+  <div class="container">
+    <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="forms">Tracker Demo</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div data-track-item='[{ "type": "mouseenter", "action": "enter-legend" }, { "type": "mouseleave", "action": "leave-legend" }]' class="well bs-component">
+              <form id='testForm' class="form-horizontal" data-track-item='{ "type": "submit", "action": "form-submit"}'>
+                <fieldset>
+                  <legend>Legend</legend>
+                  <div class="form-group">
+                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                      <input data-track-item='{ "type": "change", "action": "change-email" , "prop5": "#{document.getElementById(\"forms"\).innerHTML}"}' type="text" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <div class="col-lg-10">
+                      <input data-track-item='{ "type": "blur", "action": "blur-password" }' type="password" class="form-control" id="inputPassword" placeholder="Password">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" data-track-item='{ "type": "click", "action": "click-checkbox" }'> Checkbox
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="textArea" class="col-lg-2 control-label">Textarea</label>
+                    <div class="col-lg-10">
+                      <textarea class="form-control" rows="3" id="textArea" data-track-item='{ "type": "change", "action": "change-text-area" }'></textarea>
+                      <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="select" class="col-lg-2 control-label">Selects</label>
+                    <div class="col-lg-10">
+                      <select class="form-control" id="select" data-track-item='{ "type": "change", "action": "changed-select"}'>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <br>
+                      <select multiple="" class="form-control" data-track-item='{ "type": "change", "action": "change-multi-select" }'>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button type="reset" class="btn btn-default" data-track-item='{ "type": "click", "action": "click-reset-button" }'>Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <script src="dist/track.js" charset="utf-8"></script>
+  <script>
+    Track.init();
+    Track.onTrackedEvent = function(element, tracking, event) {
+      $.ajax({
+        type: "GET",
+        url: "http://stats.pandora.com/v1",
+        dataType: "jsonp",
+        crossDomain: true,
+        data: {
+          "type": "slingshot",
+          "event": tracking.type,
+          "action": tracking.action,
+          "category": tracking.category,
+          "prop1": tracking.prop1,
+          "prop2": tracking.prop2,
+          "prop3": tracking.prop3,
+          "prop4": tracking.prop4,
+          "prop5": tracking.prop5
+        },
+        success: function(data, textstatus) {
+          console.log('success');
+        },
+        error: function(data, textstatus) {
+          console.log('error');
+        }
+      })
+    }
+    var form = document.getElementById('testForm');
+    form.onsubmit= function(e) {
+      e.preventDefault();
+      return false;
+    }
+
+  </script>
+</body>
+</html>
