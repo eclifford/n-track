@@ -19,6 +19,11 @@ module.exports = function(config) {
       'src/**/*.js': ['babel'],
       'test/**/*.js': ['babel']
     },
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015']
+      }
+    },
 
     browsers: [
       'PhantomJS'

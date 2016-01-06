@@ -7,11 +7,12 @@
  * Date: 12.07.2015
  *
  */
-
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define([], factory);
+    define([], function() {
+      return (root.Track = factory());
+    });
   } else {
     // Browser globals (root is window)
     root.Track = factory();
@@ -39,8 +40,7 @@
     init(config) {
       // setup
       this.options = Object.assign({}, this.options, config);
-      this.elements = this.getTrackedElements();
-      this.setupTrackingEvents(this.elements);
+      this.reset();
     },
 
     /**
@@ -105,7 +105,7 @@
 
       element.addEventListener(type, handler, false);
 
-      this.events.push({ 'element': element, 'event': type, 'handler': handler});
+      this.events.push({'element': element, 'event': type, 'handler': handler});
     },
 
     /**
@@ -118,7 +118,6 @@
       this.events.forEach((event) => {
         this.removeTrackingEvent(event.element, event.type, event.handler);
       });
-      this.events = [];
     },
 
     /**
@@ -132,6 +131,19 @@
      *     Track.removeTrackingEvent()
      */
     removeTrackingEvent(element, event, handler) {
+      if (!(element && element instanceof HTMLElement)) {
+        throw new Error("Track.addTrackingEvent(): expects parameter element to an HTMLElement");
+      }
+
+      // remove stored tracking event
+      for (var i = 0; i < this.events.length; i++) {
+        if (this.events[i].element === element) {
+          this.events.splice(i, 1);
+          break;
+        }
+      }
+
+      // remove event listener
       element.removeEventListener(event, handler, false);
     },
 
@@ -158,7 +170,6 @@
         });
         trackingJSON = JSON.parse(attributes);
       } catch (e) {
-        console.log(e);
         throw new Error('getElementTracking(): there was an error while parsing data attributes');
       }
       return Array.isArray(trackingJSON) ? trackingJSON : [trackingJSON];
@@ -202,15 +213,6 @@
       this.onTrackedEvent(element, tracking, event);
     },
 
-    _htmlEscape(str) {
-      return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
-    },
-
     /**
      * onTrackedEvent()
      *
@@ -222,14 +224,7 @@
      *     Track.onTrackedEvent()
      */
     onTrackedEvent(element, tracking, event) {
-      console.log(Object.assign({}, tracking, {
-        created_at: new Date(event.timeStamp),
-        prop1: 'eclifford@pandora.com',
-        prop2: "Sales Operation Manager",
-        prop3: 'r7chhpaedj9fxv6pt4i942cplao9tldq',
-        prop4: window.location.href
-      }));
-      // adapter overloads this function
+      // overload me
     }
   };
   return Track;
