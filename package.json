@@ -1,7 +1,7 @@
 {
   "name": "n-track",
   "version": "0.0.1",
-  "description": "A DOM event based tracking library",
+  "description": "A DOM event based tracking adapter",
   "main": "dist/track.js",
   "scripts": {
     "dev": "./node_modules/.bin/babel src/track.js -w -o dist/track.js",

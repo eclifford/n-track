@@ -1,8 +1,8 @@
 # Overview
 
-*n-track* is a simple library for the collation of custom tracking information on the firing of any DOM L3 event fired on an HTML element decorated with a *n-track* observable `data-attribute`. I got tired of bloating all of my JavaScript files with custom Omniture or Google Analytics code that was tightly coupled with the DOM, brittle and hard to test/mock.
+**n-track** is a simple library for the collation of custom tracking information on the firing of any DOM L3 event fired on an HTML element decorated with a **n-track** observable `data-attribute`. I got tired of bloating all of my JavaScript files with custom Omniture or Google Analytics code that was tightly coupled with the DOM, brittle and hard to test/mock.
 
-Most of the time all we care about is interaction counts *n-track* allows you to keep the tracking logic in the markup where it belongs and makes no assumptions as to what you wish to do with those events. It's easy to write adapters for Omniture, GA, Mongo, Redis, Hive/Hadoop etc since *n-track* simply gives you back a the element that emitted the event, the event itself and a POJO containing the tracking object in whatever schema you put in the HTML.
+Most of the time all we care about is interaction counts **n-track** allows you to keep the tracking logic in the markup where it belongs and makes no assumptions as to what you wish to do with those events. It's easy to write adapters for Omniture, GA, Mongo, Redis, Hive/Hadoop etc since *n-track* simply gives you back a the element that emitted the event, the event itself and a POJO containing the tracking object in whatever schema you put in the HTML.
 
 ## Example
 

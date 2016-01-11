@@ -89,29 +89,8 @@
   <script>
     Track.init();
     Track.onTrackedEvent = function(element, tracking, event) {
-      $.ajax({
-        type: "GET",
-        url: "http://stats.pandora.com/v1",
-        dataType: "jsonp",
-        crossDomain: true,
-        data: {
-          "type": "slingshot",
-          "event": tracking.type,
-          "action": tracking.action,
-          "category": tracking.category,
-          "prop1": tracking.prop1,
-          "prop2": tracking.prop2,
-          "prop3": tracking.prop3,
-          "prop4": tracking.prop4,
-          "prop5": tracking.prop5
-        },
-        success: function(data, textstatus) {
-          console.log('success');
-        },
-        error: function(data, textstatus) {
-          console.log('error');
-        }
-      })
+      // store the even in hive, redis, sql or proxy to your own tracking library
+      console.log(element, tracking, event);
     }
     var form = document.getElementById('testForm');
     form.onsubmit= function(e) {

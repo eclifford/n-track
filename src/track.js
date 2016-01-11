@@ -105,7 +105,7 @@
 
       element.addEventListener(type, handler, false);
 
-      this.events.push({'element': element, 'event': type, 'handler': handler});
+      this.events.push({'element': element, 'type': type, 'handler': handler});
     },
 
     /**
