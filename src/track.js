@@ -10,7 +10,7 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define([], function() {
+    define(['jquery'], function() {
       return (root.Track = factory());
     });
   } else {
@@ -103,7 +103,7 @@
         this.handleTrackingEvent(element, e);
       };
 
-      element.addEventListener(type, handler, false);
+      $(element).on(type, handler);
 
       this.events.push({'element': element, 'type': type, 'handler': handler});
     },
@@ -144,7 +144,7 @@
       }
 
       // remove event listener
-      element.removeEventListener(event, handler, false);
+      $(element).off(event);
     },
 
     /**

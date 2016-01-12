@@ -3,7 +3,8 @@ module.exports = function(config) {
     frameworks: [
       'mocha',
       'chai',
-      'sinon-chai'
+      'sinon-chai',
+      'jquery-2.1.0'
     ],
 
     reporters: [
