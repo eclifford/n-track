@@ -144,7 +144,7 @@
       }
 
       // remove event listener
-      $(element).off(event);
+      $(element).off(event, handler);
     },
 
     /**
